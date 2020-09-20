@@ -1,3 +1,3 @@
-const token = 'b153eac71bf8d97682d337058c04be9816d9ab82'
+const encoded_token = 'ODcwYTE2MzE2YzVmYTcyZmQyNTFlMWI1NjAyNDk2MzczZDFmZGMwMyA=' 
 
-export default { token }
+export default { encoded_token }
