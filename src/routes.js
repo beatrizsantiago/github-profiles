@@ -6,7 +6,7 @@ import Profile from './pages/Profile'
 export default function MainRoutes() {
     return (
         <Switch>
-            <Route path="/:user_name" exact component={Profile} />
+            <Route path="/:userparam" exact component={Profile} />
         </Switch>
     )
 }
