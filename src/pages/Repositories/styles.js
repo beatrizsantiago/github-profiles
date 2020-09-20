@@ -1,29 +1,26 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
-    avatar: {
-        width: 200,
-        height: 200
+    row: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     textSmall: {
         fontSize: 15,
     },
     card: {
-        width: '48%',
+        width: '99%',
         height: 140,
-        margin: 5
+        marginBottom: 10
     },
-    spaceCard: {
-        height: '100%',
+    bigBox: {
+        flex: 1,
+        height: 110,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         boxSizing: 'border-box'
-    },
-    row: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'row',
     },
     textLanguages: {
         fontSize: 15,
@@ -35,6 +32,9 @@ const useStyles = makeStyles({
         borderRadius: 6,
         marginRight: 3,
     },
+    icon: {
+        fontSize: 14
+    }
 })
 
 export default useStyles

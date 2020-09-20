@@ -1,32 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
-import { useParams } from 'react-router-dom'
-import { Grid, Card, CardContent, Typography, Avatar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Box from '@material-ui/core/Box'
+import Avatar from '@material-ui/core/Avatar'
 
 import Schemas from '../../schemas'
 
-export default function Profile() {
+import useStyles from './styles'
 
-    const [userName, setUserName] = useState('beatrizsantiago')
+export default function Profile(props) {
 
     const classes = useStyles()
-    const { userparam } = useParams()
-
-    useEffect(() => {
-        setUserName(userparam)
-    }, [userparam])
 
     const { loading, error, data } = useQuery(Schemas.USER, {
         variables: {
-            login: userName,
+            login: props.userName,
         }
     })
 
     if (loading) {
         return (
             <Grid container alignItems="center" justify="center">
-                <Typography variant="h5">Carregando</Typography>
+                <Typography variant="h5">Buscando...</Typography>
             </Grid>
         )
     }
@@ -56,17 +55,17 @@ export default function Profile() {
                                     <CardContent className={classes.spaceCard}>
                                         <Typography variant="h6">{repository.name}</Typography>
                                         <Typography color="textSecondary" className={classes.textSmall}>{repository.description || ''}</Typography>
-                                        <Grid container direction="row" justify="flex-start">
+                                        <Box className={classes.row}>
                                             {
                                                 repository.languages.nodes.map((language, index) => (
-                                                    <Grid key={index} className={classes.row}>
+                                                    <Box key={index} className={classes.row}>
                                                         <div className={classes.circle} style={{ backgroundColor: language.color }} />
                                                         <Typography className={classes.textLanguages}>{language.name}</Typography>
-                                                    </Grid>
+                                                    </Box>
 
                                                 ))
                                             }
-                                        </Grid>
+                                        </Box>
                                     </CardContent>
                                 </Card>
                             ))
@@ -77,40 +76,3 @@ export default function Profile() {
         )
     }
 }
-
-const useStyles = makeStyles({
-    avatar: {
-        width: 200,
-        height: 200
-    },
-    textSmall: {
-        fontSize: 15,
-    },
-    card: {
-        width: '48%',
-        height: 140,
-        margin: 5
-    },
-    spaceCard: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        boxSizing: 'border-box'
-    },
-    row: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'row',
-    },
-    textLanguages: {
-        fontSize: 15,
-        marginRight: 10
-    },
-    circle: {
-        width: 12,
-        height: 12,
-        borderRadius: 6,
-        marginRight: 3,
-    },
-})

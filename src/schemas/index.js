@@ -18,7 +18,7 @@ const USER = gql`
                 ... on Repository {
                         name
                         description
-                        languages(first: 3) {
+                        languages(first: 2) {
                             nodes {
                                 name
                                 color
@@ -31,4 +31,34 @@ const USER = gql`
     }
 `;
 
-export default { USER }
+const REPOSITORIES_USER = gql`
+    query RepositoriesUser($login: String!) {
+        user(login: $login) {
+            repositories(first: 20) {
+                nodes {
+                    name
+                    description
+                    updatedAt
+                    stargazers(first: 1) {
+                        totalCount
+                    }
+                    pullRequests(first: 1) {
+                        totalCount
+                    }
+                    forkCount
+                    watchers(first: 1) {
+                        totalCount
+                    }
+                    languages(first: 4) {
+                        nodes {
+                                name
+                                color
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
+
+export default { USER, REPOSITORIES_USER }
