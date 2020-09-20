@@ -42,9 +42,6 @@ const REPOSITORIES_USER = gql`
                     stargazers(first: 1) {
                         totalCount
                     }
-                    pullRequests(first: 1) {
-                        totalCount
-                    }
                     forkCount
                     watchers(first: 1) {
                         totalCount

@@ -33,7 +33,14 @@ const useStyles = makeStyles({
         marginRight: 3,
     },
     icon: {
-        fontSize: 14
+        fontSize: 16,
+        marginRight: 5
+    },
+    textIcon: {
+        fontSize: 16,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
     }
 })
 

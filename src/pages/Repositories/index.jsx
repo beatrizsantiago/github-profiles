@@ -1,5 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
+import moment from 'moment'
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -10,6 +11,9 @@ import Box from '@material-ui/core/Box'
 import StarIcon from '@material-ui/icons/StarBorderOutlined'
 import VisibilityIcon from '@material-ui/icons/VisibilityOutlined'
 import CallSplitIcon from '@material-ui/icons/CallSplit'
+
+import Loading from '../../components/Loading'
+import Error from '../../components/Error'
 
 import Schemas from '../../schemas'
 
@@ -25,15 +29,11 @@ export default function Repositories(props) {
     })
 
     if (loading) {
-        return (
-            <Grid container alignItems="center" justify="center">
-                <Typography variant="h5">Buscando...</Typography>
-            </Grid>
-        )
+        return <Loading />
     }
 
     if (error) {
-        return <p>Error! {error.message}</p>
+        return <Error error={error.message} />
     }
 
     if (data) {
@@ -57,13 +57,13 @@ export default function Repositories(props) {
 
                                             ))
                                         }
-                                        <Typography color="textSecondary" className={classes.textSmall}>Updated {repository.updatedAt}</Typography>
+                                        <Typography color="textSecondary" className={classes.textSmall}>Updated {moment(repository.updatedAt).fromNow()}</Typography>
                                     </Box>
                                 </Box>
                                 <Box>
-                                    <Typography className={classes.textSmall}><StarIcon className={classes.icon} /> {repository.stargazers.totalCount}</Typography>
-                                    <Typography className={classes.textSmall}><VisibilityIcon className={classes.icon} /> {repository.watchers.totalCount}</Typography>
-                                    <Typography className={classes.textSmall}><CallSplitIcon className={classes.icon} /> {repository.forkCount}</Typography>
+                                    <Typography className={classes.textIcon}><StarIcon className={classes.icon} /> {repository.stargazers.totalCount}</Typography>
+                                    <Typography className={classes.textIcon}><VisibilityIcon className={classes.icon} /> {repository.watchers.totalCount}</Typography>
+                                    <Typography className={classes.textIcon}><CallSplitIcon className={classes.icon} /> {repository.forkCount}</Typography>
                                 </Box>
                             </CardContent>
                         </Card>

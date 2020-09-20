@@ -7,6 +7,11 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
+import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
+
+import Loading from '../../components/Loading'
+import Error from '../../components/Error'
 
 import Schemas from '../../schemas'
 
@@ -23,28 +28,25 @@ export default function Profile(props) {
     })
 
     if (loading) {
-        return (
-            <Grid container alignItems="center" justify="center">
-                <Typography variant="h5">Buscando...</Typography>
-            </Grid>
-        )
+        return <Loading />
     }
 
     if (error) {
-        return <p>Error! {error.message}</p>
+        return <Error error={error.message} />
     }
 
     if (data) {
         const { avatarUrl, name, login, bio, followers, following, pinnedItems } = data.user
         return (
             <Grid container>
-                <Grid container direction="column" alignItems="center" justify="center" item xs={4}>
-                    <Avatar alt="profile" src={avatarUrl} className={classes.avatar} />
-                    <Typography variant="h5">{name}</Typography>
-                    <Typography color="textSecondary">{login}</Typography>
-                    <Typography className={classes.textSmall}>{bio || ''}</Typography>
-                    <Typography className={classes.textSmall}>{followers.totalCount} followers</Typography>
-                    <Typography className={classes.textSmall}>{following.totalCount} following</Typography>
+                <Grid container item xs={4} >
+                    <Paper className={classes.boxProfile}>
+                        <Avatar alt="profile" src={avatarUrl} className={classes.avatar} />
+                        <Typography variant="h5">{name}</Typography>
+                        <Typography color="textSecondary">{login}</Typography>
+                        <Typography className={classes.textSmall}>{bio || ''}</Typography>
+                        <Typography className={classes.textSmall}>{followers.totalCount} followers | {following.totalCount} following</Typography>
+                    </Paper>
                 </Grid>
 
                 <Grid container direction="row" justify="center" wrap="wrap" item xs={8}>
@@ -69,7 +71,11 @@ export default function Profile(props) {
                                     </CardContent>
                                 </Card>
                             ))
-                            : null
+                            :
+                            <Paper className={classes.boxProfile}>
+                                <Typography variant="h5">Without Pinned Repositories</Typography>
+                                <Button variant="contained" color="primary" onClick={() => props.next()} className={classes.button}>View all repositories</Button>
+                            </Paper>
                     }
                 </Grid>
             </Grid>
