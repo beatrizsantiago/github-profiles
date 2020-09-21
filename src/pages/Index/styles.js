@@ -5,7 +5,7 @@ const useStyles = makeStyles({
         height: '100vh'
     },
     field: {
-        width: '30%',
+        width: '40%',
     },
     link: {
         textDecoration: 'none',
