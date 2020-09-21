@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 import Grid from '@material-ui/core/Grid'
 import AppBar from '@material-ui/core/AppBar'
